@@ -133,7 +133,6 @@ CLIENT_DNS_2="1.0.0.1"
 	echo ""
 	echo "Okay, that was all I needed. We are ready to setup your WireGuard server now."
 	echo "You will be able to generate a client at the end of the installation."
-	read -n1 -r -p "Press any key to continue..."
 }
 
 function installWireGuard() {
