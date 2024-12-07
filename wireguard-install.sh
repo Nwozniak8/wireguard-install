@@ -110,10 +110,6 @@ function installQuestions() {
 	echo ""
 
 SERVER_PUB_IP=$(ip -4 addr | sed -ne 's|^.* inet \([^/]*\)/.* scope global.*$|\1|p' | awk '{print $1}' | head -1)
-if [[ -z ${SERVER_PUB_IP} ]]; then
-    # Detect public IPv6 address
-    SERVER_PUB_IP=$(ip -6 addr | sed -ne 's|^.* inet6 \([^/]*\)/.* scope global.*$|\1|p' | head -1)
-fi
 
 # Detect public interface and pre-fill for the user
 SERVER_NIC="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
