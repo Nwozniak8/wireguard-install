@@ -271,6 +271,15 @@ until [[ ${IPV4_EXISTS} == '0' ]]; do
     CLIENT_WG_IPV4="${BASE_IP}.${DOT_IP}"
     IPV4_EXISTS=$(grep -c "$CLIENT_WG_IPV4/32" "/etc/wireguard/${SERVER_WG_NIC}.conf")
 done
+
+BASE_IP=$(echo "$SERVER_WG_IPV6" | awk -F '::' '{ print $1 }')
+until [[ ${IPV6_EXISTS} == '0' ]]; do
+    DOT_IP=$((RANDOM % 65536))
+    CLIENT_WG_IPV6="${BASE_IP}::${DOT_IP}"
+    IPV6_EXISTS=$(grep -c "${CLIENT_WG_IPV6}/128" "/etc/wireguard/${SERVER_WG_NIC}.conf")
+done
+
+
 	# Generate key pair for the client
 	CLIENT_PRIV_KEY=$(wg genkey)
 	CLIENT_PUB_KEY=$(echo "${CLIENT_PRIV_KEY}" | wg pubkey)
